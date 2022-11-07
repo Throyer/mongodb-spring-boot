@@ -8,7 +8,7 @@
 - docker-compose for development
   - starting containers
   ```
-  .docker/scripts/develop up -d --build
+  .docker/scripts/develop up -d
   ```
   
   - removing contaiers
