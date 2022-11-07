@@ -1,0 +1,13 @@
+{
+  // https://github.com/halcyon/asdf-java#asdf-java
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-17",
+      "path": "~/.asdf/installs/java/openjdk-17.0.2",
+      "default": true
+    },
+  ],
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.inlayHints.parameterNames.enabled": "none",
+  "explorer.compactFolders": false,
+}

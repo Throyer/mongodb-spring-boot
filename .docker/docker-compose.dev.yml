@@ -1,0 +1,57 @@
+version: '3'
+services:
+
+  database:
+    image: mongo:5.0.5
+    container_name: ${COMPOSE_PROJECT_NAME}-database
+    restart: unless-stopped
+    ports:
+      - "${DB_PORT}:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "${DB_USERNAME}"
+      MONGO_INITDB_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MONGO_INITDB_DATABASE: ${DB_NAME}
+    volumes:
+      - ./configurations/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ~/.volumes/mongodb:/data/db
+    networks:
+      - carts-service-network
+    tty: true
+
+  api:
+    image: maven:3.8.6-eclipse-temurin-17-alpine
+    platform: linux/x86_64
+    container_name: ${COMPOSE_PROJECT_NAME}-api
+    links:
+      - database
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+      - "${SERVER_DEBUG_PORT}:${SERVER_DEBUG_PORT}"
+    environment:
+      # database
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+      # swagger
+      SWAGGER_URL: ${SWAGGER_URL}
+      SWAGGER_USERNAME: ${SWAGGER_USERNAME}
+      SWAGGER_PASSWORD: ${SWAGGER_PASSWORD}
+    volumes:
+      - ../:/app
+      - ~/.m2:/root/.m2
+    working_dir: /app
+    networks:
+      - carts-service-network
+    tty: true
+    entrypoint: [
+      'mvn',
+      'spring-boot:run',
+      '-Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,address=*:${SERVER_DEBUG_PORT},suspend=n"'
+    ]
+
+networks:
+  carts-service-network:
+    driver: bridge
