@@ -10,4 +10,8 @@
   "java.configuration.updateBuildConfiguration": "automatic",
   "java.inlayHints.parameterNames.enabled": "none",
   "explorer.compactFolders": false,
+  "cSpell.words": [
+    "github",
+    "throyer"
+  ],
 }

@@ -13,7 +13,7 @@ services:
       MONGO_INITDB_DATABASE: ${DB_NAME}
     volumes:
       - ./configurations/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-      - ~/.volumes/mongodb:/data/db
+      - ~/.volumes/database/mongodb:/data/db
     networks:
       - carts-service-network
     tty: true

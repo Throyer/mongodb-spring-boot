@@ -19,8 +19,8 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/employes")
-public class EmployesController {
+@RequestMapping("/employees")
+public class EmployeesController {
   private EmployerRepository repository;
 
   @GetMapping
