@@ -20,12 +20,3 @@
   ```
   .docker/scripts/develop logs -f api
   ```
-
-- docker-compose for production
-  ```
-  .docker/scripts/production up -d --build
-  ```
-
-  ```
-  .docker/scripts/production down
-  ```
